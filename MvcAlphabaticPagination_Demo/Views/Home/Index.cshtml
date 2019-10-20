@@ -1,0 +1,35 @@
+﻿@model MvcAlphabaticPagination_Demo.ViewModels.AlphabeticCustomerPagingViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h4 class="text-center text-uppercase">Alphabetic Search in ASP.Net MVC</h4>
+
+<ul class="pagination alpha">
+    @foreach (var link in Model.Alphabet)
+    {
+        if (Model.FirstLetters.Contains(link) || (Model.NamesStartWithNumbers && link == "0-9") || link == "All")
+        {
+            if (Model.SelectedLetter == link || Model.SelectedLetter.IsEmpty() && link == "All")
+            {
+                <li class="page-item active"><a class="page-link" href="#">@link</a></li>
+            }
+            else
+            {
+                <li class="page-item">@Html.ActionLink(link, "Index", new { selectedLetter = link },new { @class= "page-link" })</li>
+            }
+        }
+        else
+        {
+            <li class="page-item inactive"><a class="page-link" href="#">@link</a></li>
+        }
+    }
+</ul>
+
+<ul class="list-group">
+    @foreach (var item in Model.CustomerName)
+    {
+        <li class="list-group-item list-group-item-primary">@item</li>
+    }
+</ul>
